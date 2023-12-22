@@ -16,8 +16,8 @@ overlay.style.cssText = `
 const lottieContainer = document.createElement('div');
 lottieContainer.id = 'lottieContainer';
 lottieContainer.style.cssText = `
-    max-width: 30%;
-    max-height: 30%;
+    max-width: 50%;
+    max-height: 50%;
     display: none;
     position: absolute;
     top: 50%;
@@ -31,15 +31,18 @@ document.body.appendChild(lottieContainer);
 
 function hideOverlay() {
     overlay.style.display = 'none';
-    lottieContainer.style.display = 'block';
-    // Substitua pela URL direta do seu arquivo JSON do Lottie.
-    lottie.loadAnimation({
-        container: lottieContainer,
-        renderer: 'svg', // ou 'canvas' se preferir
-        loop: true,
-        autoplay: true,
-        path: 'https://jeffalcangl.github.io/preloaderJSLottie/R4s2Uh0L1c.json',
-    });
+    
+    // Verifica se o lottieContainer já tem filhos (animação carregada)
+    if (lottieContainer.children.length === 0) {
+        lottieContainer.style.display = 'block';
+        lottie.loadAnimation({
+            container: lottieContainer,
+            renderer: 'svg', // ou 'canvas'
+            loop: true,
+            autoplay: true,
+            path: 'https://jeffalcangl.github.io/preloaderJSLottie/R4s2Uh0L1c.json',
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
