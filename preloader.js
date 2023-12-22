@@ -16,34 +16,38 @@ overlay.style.cssText = `
 const lottieContainer = document.createElement('div');
 lottieContainer.id = 'lottieContainer';
 lottieContainer.style.cssText = `
-    max-width: 20%;
-    max-height: 20%;
+    width: 100px; /* ou o tamanho que você desejar */
+    height: 100px; /* ou o tamanho que você desejar */
     display: none;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 `;
-lottieContainer.style.display = 'none';
 
 document.body.appendChild(overlay);
 document.body.appendChild(lottieContainer);
 
+// Variável para controlar se a animação foi carregada
+let animationLoaded = false;
+
 function hideOverlay() {
-    overlay.style.display = 'none';
-    lottieContainer.style.display = 'block';
-    // Substitua pela URL direta do seu arquivo JSON do Lottie.
-    lottie.loadAnimation({
-        container: lottieContainer,
-        renderer: 'svg', // ou 'canvas' se preferir
-        loop: true,
-        autoplay: true,
-        path: 'https://jeffalcangl.github.io/preloaderJSLottie/R4s2Uh0L1c.json',
-    });
+    if (!animationLoaded) {
+        overlay.style.display = 'none';
+        lottieContainer.style.display = 'block';
+        
+        // Carregar a animação Lottie
+        lottie.loadAnimation({
+            container: lottieContainer, // Referência ao elemento DOM para hospedar a animação Lottie
+            renderer: 'svg', // Define o renderizador como 'svg'
+            loop: true, // A animação deve repetir em loop
+            autoplay: true, // A animação começa a tocar automaticamente
+            path: 'https://jeffalcangl.github.io/preloaderJSLottie/R4s2Uh0L1c.json' // URL do arquivo JSON da animação Lottie
+        });
+        
+        animationLoaded = true; // Atualiza a variável para indicar que a animação foi carregada
+    }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    hideOverlay(); // Teste sem o setTimeout
-});
-
-window.addEventListener('load', hideOverlay);
+// Optar por usar apenas um evento para evitar a carga dupla
+document.addEventListener('DOMContentLoaded', hideOverlay);
